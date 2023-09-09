@@ -55,3 +55,19 @@ df = pd.read_csv("input_name.csv")
 df['Date'] = pd.to_datetime(df['Date'])
 # Also see: pd.to_numeric() and pd.to_timedelta()
 df.info()
+
+### 11. Using Boolean instead of Strings
+import pandas as pd
+df = pd.read_csv("input_name.csv")
+
+df['sub10'] = df['Time'] < 10
+
+### 12. pandas plot method instead of matplotlib import
+import pandas as pd
+import matplotlib.pyplot as plt
+df = pd.read_csv("input_name.csv")
+
+ax = df.plot(kind='scatter',
+            x='Year',
+            y='Time'
+            title='Year vs Speed')
