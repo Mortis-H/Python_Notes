@@ -71,3 +71,23 @@ ax = df.plot(kind='scatter',
             x='Year',
             y='Time'
             title='Year vs Speed')
+
+### 13. pandas str.upper() instead apply and etc
+import pandas as pd
+df = pd.read_csv("input_name.csv")
+
+df['Name_Uppercase'] = df['Name'].str.upper()
+# also str.strip(), str.lower(), str.replace(), and str.split()
+
+### 14. use data pipeline once instead of repeating many times
+import pandas as pd
+def process_data(df):
+    df['Time_Norm'] = df['Time'] / df['Time'].mean()
+    df['Place'] = df['Place'].str.lower()
+    return df
+
+df_1 = pd.read_csv("input_name_1.csv")
+df_2 = pd.read_csv("input_name_2.csv")
+
+df_1 = process_data(df_1)
+df_2 = process_data(df_2)
