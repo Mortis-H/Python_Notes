@@ -91,3 +91,19 @@ df_2 = pd.read_csv("input_name_2.csv")
 
 df_1 = process_data(df_1)
 df_2 = process_data(df_2)
+
+### 15. learn proper way of renaming columns by dict
+import pandas as pd
+df = pd.read_csv("input_name.csv")
+df = df.rename(columns={'Old_name':'New_name'})
+
+### 16. learn proper way of grouping values
+import pandas as pd
+df = pd.read_csv("input_name.csv")
+df.groupy('Grouping')['Time'].min()
+
+### 17. proper way of complex grouping values
+import pandas as pd
+df = pd.read_csv('input_name.csv')
+
+df.groupby('Grouping')['Time'].agg(['mean','count'])
