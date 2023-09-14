@@ -107,3 +107,10 @@ import pandas as pd
 df = pd.read_csv('input_name.csv')
 
 df.groupby('Grouping')['Time'].agg(['mean','count'])
+
+### 18. percent_change or difference now could be implemend with function
+import pandas as pd
+df = pd.read_csv('input_name.csv')
+
+df['perc_change'] = df['Time'].pct_change()
+df['change'] = df['Time'].diff()
