@@ -6,12 +6,30 @@ import nvtx
 
 # 導入作業系統相關功能
 import os
+
 # 設定 CuPy 的快取目錄位置
 os.environ['CUPY_CACHE_DIR'] = r"D:/cupy_demo/cupy_cache"
 
 # 設定 GPU 記憶體分配器
 # 建立一個 4GB 大小的記憶體池來管理 GPU 記憶體
 cp.cuda.set_allocator(cp.cuda.MemoryPool(4 * 1024 * 1024 * 1024).malloc)
+
+# 設定 GPU 計算的精確度
+cp.cuda.set_default_dtype(cp.float32)  # 設定為單精度浮點數以提升效能
+
+# 啟用自動記憶體管理
+cp.cuda.set_pinned_memory_allocator()
+
+# 設定 GPU 設備
+device = cp.cuda.Device(0)  # 使用第一個 GPU
+device.use()
+
+# 顯示 GPU 資訊
+print(f"使用的 GPU: {cp.cuda.runtime.getDeviceName()}")
+print(f"可用記憶體: {cp.cuda.runtime.memGetInfo()[0]/1024**3:.2f} GB")
+
+# 設定 kernel 編譯選項
+cp.cuda.compiler.compile_with_cache = True  # 啟用 kernel 快取
 
 @cp.fuse()
 def complex_calc(x):
