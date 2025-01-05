@@ -10,6 +10,11 @@ import os
 # 設定 CuPy 的快取目錄位置
 os.environ['CUPY_CACHE_DIR'] = r"D:/cupy_demo/cupy_cache"
 
+# rmm
+import rmm
+from rmm.alocators.cupy import rmm_cupy_allocator
+cp.cuda.set_allocator(rmm_cupy_allocator)
+
 # 設定 GPU 記憶體分配器
 # 建立一個 4GB 大小的記憶體池來管理 GPU 記憶體
 cp.cuda.set_allocator(cp.cuda.MemoryPool(4 * 1024 * 1024 * 1024).malloc)
