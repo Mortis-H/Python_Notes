@@ -114,3 +114,8 @@ df = pd.read_csv('input_name.csv')
 
 df['perc_change'] = df['Time'].pct_change()
 df['change'] = df['Time'].diff()
+
+### 19. add new row to DataFrame
+df = pd.DataFrame(columns=["Column 1","Column 2"])
+new_row = pd.DataFrame([{"Column 1" : value_1, "Column 2" : value_2}])
+df = pd.concat([df, new_row], ignore_index = True)
