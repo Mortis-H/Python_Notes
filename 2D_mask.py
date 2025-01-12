@@ -21,3 +21,12 @@ for _ in range(5):
     # 方法2: 使用 take
     with nvtx.annotate("method2"):
         filtered_array2 = cp.where(cp.tile(mask2, (3, 1)), data, 0)
+    
+    # 方法3: 不用cp.tile
+    with nvtx.annotate("method3"):
+        filtered_array3 = cp.where(cp.asarray([mask2, mask2, mask2]), data, 0)
+    
+        # 比較三個方法的結果
+        print("方法1和方法2結果是否相同:", cp.allclose(filtered_array1, filtered_array2))
+        print("方法1和方法3結果是否相同:", cp.allclose(filtered_array1, filtered_array3))
+        print("方法2和方法3結果是否相同:", cp.allclose(filtered_array2, filtered_array3))
