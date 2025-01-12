@@ -24,9 +24,10 @@ for _ in range(5):
     
     # 方法3: 不用cp.tile
     with nvtx.annotate("method3"):
-        filtered_array3 = cp.where(cp.asarray([mask2, mask2, mask2]), data, 0)
+        filtered_array3 = cp.where(cp.asarray([mask, mask, mask]), data, 0)
     
-        # 比較三個方法的結果
-        print("方法1和方法2結果是否相同:", cp.allclose(filtered_array1, filtered_array2))
-        print("方法1和方法3結果是否相同:", cp.allclose(filtered_array1, filtered_array3))
-        print("方法2和方法3結果是否相同:", cp.allclose(filtered_array2, filtered_array3))
+        # 使用 cp.testing 比較三個方法的結果
+        cp.testing.assert_array_equal(filtered_array1, filtered_array2, "方法1和方法2結果不相同")
+        cp.testing.assert_array_equal(filtered_array1, filtered_array3, "方法1和方法3結果不相同")
+        cp.testing.assert_array_equal(filtered_array2, filtered_array3, "方法2和方法3結果不相同")
+        print("所有方法的結果都相同!")
