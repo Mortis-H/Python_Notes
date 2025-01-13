@@ -13,6 +13,8 @@ data = cp.random.random(array_shape)  # 建立隨機測試資料
 mask = cp.random.random(400000) > 0.5  # 隨機產生 boolean mask
 mask2 = cp.expand_dims(mask, axis=0)
 
+import nvtx
+
 
 for _ in range(50):
 
@@ -23,7 +25,10 @@ for _ in range(50):
     #     filtered_array1[:, mask] = data[:, mask]
 
     # 方法2: 使用 take
-    with nvtx.annotate("method2"):
+        # 使用 where 函數進行條件篩選，並加上註解
+        # 參數 1：對整個陣列進行 tile 操作，將 mask 繫接成 shape=(3,400000)
+        # 參數 2：data 數據
+        # 參數 3：不滿足條件時的填充值（本例中為 0）
         filtered_array2 = cp.where(cp.tile(mask2, (3, 1)), data, 0)
     
     # 方法3: 不用cp.tile
@@ -35,3 +40,4 @@ for _ in range(50):
         # cp.testing.assert_array_equal(filtered_array1, filtered_array3, "方法1和方法3結果不相同")
         # cp.testing.assert_array_equal(filtered_array2, filtered_array3, "方法2和方法3結果不相同")
         # print("所有方法的結果都相同!")
+
