@@ -9,9 +9,9 @@
 
   ],
   "tabAutocompleteModel": {
-    "apiBase": "http://localhost:1234/v1/",
-    "model": "qwen2.5-coder-14b-instruct",
-    "title": "Qwen",
+    "apiBase": "http://192.168.68.54:1234/v1/",
+    "model": "qwen2.5-coder-3b-instruct",
+    "title": "Qwen-3b",
     "provider": "lmstudio"
   },
   "contextProviders": [
